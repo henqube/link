@@ -18,7 +18,7 @@ header {
     display: inline-block;
     font-size: 30px;
     width : 100%;
-    top : 60%;
+    top : 40%;
     left : 50%;
     transform: translate(-50%,-50%);
     text-align: center;
