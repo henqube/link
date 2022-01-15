@@ -1,64 +1,74 @@
 <!DOCTYPE html>
-<!--
-	NOTES:
-	1. All tokens are represented by '$' sign in the template.
-	2. You can write your code only wherever mentioned.
-	3. All occurrences of existing tokens will be replaced by their appropriate values.
-	4. Blank lines will be removed automatically.
-	5. Remove unnecessary comments before creating your template.
--->
-<html>
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="authoring-tool" content="Adobe_Animate_CC">
-<meta name="viewport" content="width=device-width">
-<title>index</title>
-<!-- write your code here -->
-<style>
-  #animation_container {
-	position:absolute;
-	margin:auto;
-	left:0;right:0;
-	top:0;bottom:0;
-  }
-</style>
-<script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
-<script src="index.js?1639479381316"></script>
-<script>
-var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
-function init() {
-	canvas = document.getElementById("canvas");
-	anim_container = document.getElementById("animation_container");
-	dom_overlay_container = document.getElementById("dom_overlay_container");
-	var comp=AdobeAn.getComposition("1E473116B626E842A3E078117C0CBC48");
-	var lib=comp.getLibrary();
-	handleComplete({},comp);
-}
-function handleComplete(evt,comp) {
-	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
-	var lib=comp.getLibrary();
-	var ss=comp.getSpriteSheet();
-	exportRoot = new lib.index();
-	stage = new lib.Stage(canvas);	
-	//Registers the "tick" event listener.
-	fnStartAnimation = function() {
-		stage.addChild(exportRoot);
-		createjs.Ticker.framerate = lib.properties.fps;
-		createjs.Ticker.addEventListener("tick", stage);
-	}	    
-	//Code to support hidpi screens and responsive scaling.
-	AdobeAn.makeResponsive(true,'both',true,1,[canvas,anim_container,dom_overlay_container]);	
-	AdobeAn.compositionLoaded(lib.properties.id);
-	fnStartAnimation();
-}
-</script>
-<!-- write your code here -->
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="index.css">
 </head>
-<body onload="init();" style="margin:0px; overflow-x: hidden; background-color:#fde0e0"  >
-	<div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:360px; height:640px">
-		<canvas id="canvas" width="360" height="640" style="position: absolute; display: block; background-color:rgba(255, 255, 255, 1.00);"></canvas>
-		<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:360px; height:640px; position: absolute; left: 0px; top: 0px; display: block;">
+<body>
+	<header> 
+		<div id="header-title"> 
+			<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbzEMgy%2FbtrqMvAZ1Wr%2FjG2ozJLyi3Kke1ZNu56ZI1%2Fimg.png", width="512px">
+		</div> 
+	</header>
+	<main>
+		<div id="main-card">
+			<a href = "https://www.youtube.com/channel/UCMpHlsFTXQk6Z5J2bwnw9jA", target="_blank">
+				<div style="text-align: center;">
+					<img src="https://blog.kakaocdn.net/dn/rptty/btrqMchnCcz/Q2YMkilbWGttAL48iSTrV0/img.gif", width="512px">			
+				</div></a>
+
+
+			<div style="text-align: center;">	
+				<a href = "https://henq.tistory.com/category/%EB%B0%B0%EA%B2%BD%ED%99%94%EB%A9%B4%20%28%EC%9B%94%ED%8E%98%EC%9D%B4%ED%8D%BC%29", target="_blank">
+				<div style="display: inline-block;">
+					<img src="https://blog.kakaocdn.net/dn/eddj2w/btrqMwfDBGY/LGpClxIR9Ex7f1OQTt5Vq1/img.gif", width="256px">			
+				</div></a>
+				
+				<a href = "https://henq.tistory.com/category/%ED%97%A8%ED%81%90%ED%88%B0%20%EC%A0%9C%EC%9E%91%EB%85%B8%ED%8A%B8", target="_blank">
+					<div style="display: inline-block;">
+						<img src="https://blog.kakaocdn.net/dn/dHNm3m/btrqNLXqjyq/FMKzWwT2QWUCCRe7QbrOT1/img.gif", width="256px">			
+					</div></a>
+			</div>
+					
+					
+		</div> 
+
+		<!--
+		<div id="main-card">						
+				<a href = "http://naver.com">
+				<div class="card_2x1" id="card1">				
+				</div></a><div class="card_1x1" id="card2">
+				</div><a href = "https://www.instagram.com/hendy_u/">
+				<div class="card_1x1" id="card3">
+				</div></a><div class="card_1x1" id="card4">
+				</div><div class="card_1x1" id="card5">
+				</div> 					
+				<div class="card_1x1" id="card6">
+				</div><div class="card_1x1" id="card7">
+				</div><div class="card_1x1" id="card8">
+				</div><div class="card_1x1" id="card9">
+				</div><div class="card_2x1" id="card10"></div>
+				<div class="card_1x1" id="card11">
+				</div><div class="card_1x1" id="card12">
+				</div><div class="card_1x1" id="card13">
+				</div><div class="card_1x1" id="card14">
+				</div><div class="card_1x1" id="card15">
+				</div><div class="card_1x1" id="card16"></div>
+				
+			
+			<div id="main-footer"> Copyright 2021. HENQ All Rights Reserved.</div>
+			</div>
 		</div>
-	</div>
+		-->
+
+	</main>
+
+	<!--
+	<footer> <p>Copyright 2021. HENQ All Rights Reserved.</p></footer>
+	-->
+	
 </body>
 </html>
