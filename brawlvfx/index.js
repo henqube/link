@@ -566,20 +566,13 @@ if (reversed == null) { reversed = false; }
 		if(this.totalFrames == 1) {
 			this.isSingleFrame = true;
 		}
-		/* Mouse Click Event
-		Clicking on the specified symbol instance executes a function in which you can add your own custom code.
-		
-		Instructions:
-		1. Add your custom code on a new line after the line that says "// Start your custom code" below.
-		The code will execute when the symbol instance is clicked.
-		*/
-		
+		/*
 		this.btn_gm.addEventListener("click", fl_MouseClickHandler.bind(this));
 		
 		function fl_MouseClickHandler()
 		{
 			 window.open("https://www.notion.so/octopo/c985bf3b1d874f1abe6dddec1b411c7f?pvs=4");
-		}
+		}*/
 	}
 
 	// actions tween:
@@ -629,7 +622,7 @@ lib.properties = {
 	color: "#0099FF",
 	opacity: 1.00,
 	manifest: [
-		{src:"images/index_atlas_1.png?1743263877102", id:"index_atlas_1"}
+		{src:"images/index_atlas_1.png?1743264191219", id:"index_atlas_1"}
 	],
 	preloads: []
 };
