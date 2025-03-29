@@ -61,10 +61,10 @@ lib.properties = {
 	width: 1280,
 	height: 600,
 	fps: 24,
-	color: "#986373",
+	color: "#0099FF",
 	opacity: 1.00,
 	manifest: [
-		{src:"images/index_atlas_1.png?1743259331479", id:"index_atlas_1"}
+		{src:"images/index_atlas_1.png?1743259445237", id:"index_atlas_1"}
 	],
 	preloads: []
 };
