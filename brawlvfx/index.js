@@ -2,7 +2,9 @@
 
 var p; // shortcut to reference prototypes
 var lib={};var ss={};var img={};
-lib.ssMetadata = [];
+lib.ssMetadata = [
+		{name:"index_atlas_1", frames: [[0,0,1280,600]]}
+];
 
 
 (lib.AnMovieClip = function(){
@@ -25,6 +27,13 @@ lib.ssMetadata = [];
 
 
 
+(lib.Bitmap1 = function() {
+	this.initialize(ss["index_atlas_1"]);
+	this.gotoAndStop(0);
+}).prototype = p = new cjs.Sprite();
+
+
+
 // stage content:
 (lib.index = function(mode,startPosition,loop,reversed) {
 if (loop == null) { loop = true; }
@@ -37,10 +46,15 @@ if (reversed == null) { reversed = false; }
 	props.reversed = reversed;
 	cjs.MovieClip.apply(this,[props]);
 
+	// Layer_1
+	this.instance = new lib.Bitmap1();
+
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
 	this._renderFirstFrame();
 
 }).prototype = p = new lib.AnMovieClip();
-p.nominalBounds = new cjs.Rectangle(0,0,0,0);
+p.nominalBounds = new cjs.Rectangle(640,300,640,300);
 // library properties:
 lib.properties = {
 	id: '1047032C40A75540BEF998704B5BAF3A',
@@ -49,7 +63,9 @@ lib.properties = {
 	fps: 24,
 	color: "#986373",
 	opacity: 1.00,
-	manifest: [],
+	manifest: [
+		{src:"images/index_atlas_1.png?1743258010146", id:"index_atlas_1"}
+	],
 	preloads: []
 };
 
