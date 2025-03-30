@@ -27,28 +27,28 @@ lib.ssMetadata = [
 
 
 
-(lib.CachedBmp_21 = function() {
+(lib.CachedBmp_25 = function() {
 	this.initialize(ss["index_atlas_1"]);
 	this.gotoAndStop(0);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_20 = function() {
+(lib.CachedBmp_24 = function() {
 	this.initialize(ss["index_atlas_1"]);
 	this.gotoAndStop(1);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_18 = function() {
+(lib.CachedBmp_23 = function() {
 	this.initialize(ss["index_atlas_1"]);
 	this.gotoAndStop(2);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_17 = function() {
+(lib.CachedBmp_22 = function() {
 	this.initialize(ss["index_atlas_1"]);
 	this.gotoAndStop(3);
 }).prototype = p = new cjs.Sprite();
@@ -279,10 +279,10 @@ if (reversed == null) { reversed = false; }
 	cjs.MovieClip.apply(this,[props]);
 
 	// Layer_2
-	this.instance = new lib.CachedBmp_21();
+	this.instance = new lib.CachedBmp_25();
 	this.instance.setTransform(-73,73.95,0.5,0.5);
 
-	this.instance_1 = new lib.CachedBmp_20();
+	this.instance_1 = new lib.CachedBmp_24();
 	this.instance_1.setTransform(-90.05,70.3,0.5,0.5);
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[]}).to({state:[{t:this.instance_1},{t:this.instance}]},1).wait(2));
@@ -366,10 +366,10 @@ if (reversed == null) { reversed = false; }
 	cjs.MovieClip.apply(this,[props]);
 
 	// Layer_2
-	this.instance = new lib.CachedBmp_18();
+	this.instance = new lib.CachedBmp_23();
 	this.instance.setTransform(-73,73.95,0.5,0.5);
 
-	this.instance_1 = new lib.CachedBmp_17();
+	this.instance_1 = new lib.CachedBmp_22();
 	this.instance_1.setTransform(-90.05,70.3,0.5,0.5);
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[]}).to({state:[{t:this.instance_1},{t:this.instance}]},1).wait(2));
@@ -1185,7 +1185,7 @@ if (reversed == null) { reversed = false; }
 	// Layer_16
 	this.instance_2 = new lib.Symbol5();
 	this.instance_2.setTransform(-224.95,18.05,1,1,-15);
-	this.instance_2.alpha = 0.5;
+	this.instance_2.alpha = 0.8008;
 
 	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(40));
 
@@ -1301,7 +1301,7 @@ lib.properties = {
 	color: "#0099FF",
 	opacity: 1.00,
 	manifest: [
-		{src:"images/index_atlas_1.png?1743344622919", id:"index_atlas_1"}
+		{src:"images/index_atlas_1.png?1743345290009", id:"index_atlas_1"}
 	],
 	preloads: []
 };
