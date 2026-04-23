@@ -1,57 +1,552 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>HENQLINK</title>
-	<link rel="stylesheet" type="text/css" href="index.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HENQLINK</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f3ef;
+      --surface: #ffffff;
+      --border: #e8e4de;
+      --accent: #ff4f6d;
+      --accent2: #222;
+      --text: #1a1a1a;
+      --muted: #999;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans KR', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 0 60px;
+    }
+
+    /* HEADER */
+    .header {
+      width: 100%;
+      max-width: 480px;
+      padding: 48px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-img {
+      width: 140px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .logo-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 4px;
+      color: var(--muted);
+    }
+
+    /* TOP BUTTON (유튜브 GIF) */
+    .top-btn {
+      width: 100%;
+      max-width: 480px;
+      padding: 0 24px;
+      margin-bottom: 8px;
+    }
+
+    .top-btn a {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--accent);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 20px rgba(255,79,109,0.25);
+    }
+
+    .top-btn a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(255,79,109,0.35);
+    }
+
+    .top-btn img {
+      width: 52px;
+      height: 52px;
+      object-fit: cover;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+
+    .top-btn .top-text {
+      font-size: 15px;
+      font-weight: 500;
+      color: #fff;
+      letter-spacing: 0.3px;
+    }
+
+    .top-btn .top-sub {
+      font-size: 11px;
+      color: rgba(255,255,255,0.7);
+      margin-top: 2px;
+      letter-spacing: 1px;
+    }
+
+    /* DIVIDER */
+    .divider {
+      width: 100%;
+      max-width: 480px;
+      padding: 20px 24px 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .divider-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 15px;
+      letter-spacing: 3px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* SEARCH */
+    .search-wrap {
+      width: 100%;
+      max-width: 480px;
+      padding: 0 24px 16px;
+    }
+
+    .search-box {
+      width: 100%;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-family: 'Noto Sans KR', sans-serif;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-box:focus {
+      border-color: var(--accent);
+    }
+
+    .search-box::placeholder {
+      color: var(--muted);
+    }
+
+    /* BODY GRID */
+    .body-grid {
+      width: 100%;
+      max-width: 480px;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .item-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      text-decoration: none;
+      border: 1.5px solid var(--border);
+      transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .item-card:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+
+    .item-thumb {
+      width: 56px;
+      height: 56px;
+      border-radius: 10px;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: var(--border);
+    }
+
+    /* 썸네일 없을 때 자동 생성 */
+    .item-thumb-fallback {
+      width: 56px;
+      height: 56px;
+      border-radius: 10px;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #f0ede8, #e8e4de);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .item-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .item-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.4;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .item-domain {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 3px;
+      letter-spacing: 0.3px;
+    }
+
+    .item-arrow {
+      color: var(--muted);
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    /* 쿠팡 배지 */
+    .coupang-badge {
+      font-size: 10px;
+      background: #fee500;
+      color: #222;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-weight: 700;
+      margin-top: 4px;
+      display: inline-block;
+      letter-spacing: 0.5px;
+    }
+
+    /* FOOTER */
+    .footer {
+      width: 100%;
+      max-width: 480px;
+      padding: 36px 24px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-coupang {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.6;
+      background: var(--surface);
+      border-radius: 10px;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    /* 없을 때 */
+    .empty {
+      text-align: center;
+      padding: 40px 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* 로딩 */
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 60px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .spinner {
+      width: 28px;
+      height: 28px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* 페이드인 */
+    .fade-in {
+      animation: fadeIn 0.4s ease both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
-<body style="overflow-x: hidden">
-		<div style = "height : 20px";>
-		</div>
+<body>
 
-		<div>
-			<div style="text-align: center; display: block;" > 
-				<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FwlR66%2FbtrUeKWT1d0%2FTrfgJNbuDuQ5Uhtuj1Nmxk%2Fimg.png", width=70%>
-				<br></br>
-			</div> 
-			
-			<a href = "https://link.coupang.com/a/JIXxq", target="_blank">
-				<div style="text-align: center;">
-					<img src="https://blog.kakaocdn.net/dn/lVN7l/btrUI0eAh8O/LGKgcKn7NOlRWz36VRuk4k/img.gif", width="89%">			
-				</div></a>
-			
-			<a href = "https://www.youtube.com/channel/UCMpHlsFTXQk6Z5J2bwnw9jA", target="_blank">
-				<div style="text-align: center;">
-					<img src="https://blog.kakaocdn.net/dn/Q1KUD/btrqNf5zNJO/QL4lyjoPiqHntCR4pNUT40/img.gif", width="89%">			
-				</div></a>
+  <!-- HEADER -->
+  <div class="header" id="header">
+    <div class="loading"><div class="spinner"></div></div>
+  </div>
 
-			
-			<div style="text-align: center;">	
-				<a href = "https://henq.tistory.com/category/%EB%B0%B0%EA%B2%BD%ED%99%94%EB%A9%B4%20%28%EC%9B%94%ED%8E%98%EC%9D%B4%ED%8D%BC%29", target="_blank">				
-					<img src="https://blog.kakaocdn.net/dn/eddj2w/btrqMwfDBGY/LGpClxIR9Ex7f1OQTt5Vq1/img.gif", width="29%">			
-				</a>
-				
-				<a href = "https://henq.tistory.com/category/%ED%97%A8%ED%81%90%ED%88%B0%20%EC%A0%9C%EC%9E%91%EB%85%B8%ED%8A%B8", target="_blank">				
-						<img src="https://blog.kakaocdn.net/dn/dHNm3m/btrqNLXqjyq/FMKzWwT2QWUCCRe7QbrOT1/img.gif" , width="29%">			
-				</a>
-				<a href = "https://www.instagram.com/hendy.illust/", target="_blank">				
-					<img src="https://blog.kakaocdn.net/dn/XbLwJ/btrqMQLJ3tf/xovskF2kVfjBqC2GKNk7uk/img.gif" , width="29%">			
-				</a>
+  <!-- TOP -->
+  <div class="top-btn" id="top">
+  </div>
 
-			</div>				
-					
-		</div> 
+  <!-- DIVIDER -->
+  <div class="divider">
+    <span class="divider-label">HENQ PICK</span>
+    <div class="divider-line"></div>
+  </div>
 
-		<div id="main-footer">
-			Copyright 2021. HENQ All Rights Reserved.
-		</div>
+  <!-- SEARCH -->
+  <div class="search-wrap">
+    <input class="search-box" type="text" id="searchInput" placeholder="상품 검색..." oninput="filterItems()" />
+  </div>
 
+  <!-- BODY -->
+  <div class="body-grid" id="body">
+    <div class="loading"><div class="spinner"></div></div>
+  </div>
 
-	<!--
-	<footer> <p>Copyright 2021. HENQ All Rights Reserved.</p></footer>
-	-->
-	
+  <!-- FOOTER -->
+  <div class="footer" id="footer"></div>
+
+  <script>
+    let allItems = [];
+
+    // 도메인 추출
+    function getDomain(url) {
+      try {
+        return new URL(url).hostname.replace('www.', '');
+      } catch { return url; }
+    }
+
+    // 썸네일 자동 생성 (OG 이미지 or 이모지 폴백)
+    async function fetchThumb(url) {
+      try {
+        const domain = getDomain(url);
+        // 쿠팡 링크면 파비콘 기반 fallback
+        if (domain.includes('coupang')) return null;
+        return `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+      } catch { return null; }
+    }
+
+    // 쿠팡 도메인 감지
+    function isCoupang(url) {
+      return url && (url.includes('coupang') || url.includes('coupa.ng'));
+    }
+
+    // 이모지 fallback (상품명 첫 글자 기반)
+    function getEmoji(text) {
+      const emojis = ['🛍️','📦','✨','🎁','💫','🌟','🎀','💝'];
+      const idx = text.charCodeAt(0) % emojis.length;
+      return emojis[idx];
+    }
+
+    // 검색 필터
+    function filterItems() {
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      const cards = document.querySelectorAll('.item-card');
+      cards.forEach(card => {
+        const name = card.dataset.name || '';
+        card.style.display = name.includes(q) ? 'flex' : 'none';
+      });
+
+      const visible = [...cards].filter(c => c.style.display !== 'none');
+      const empty = document.getElementById('empty-msg');
+      if (visible.length === 0) {
+        if (!empty) {
+          const el = document.createElement('p');
+          el.id = 'empty-msg';
+          el.className = 'empty';
+          el.textContent = '검색 결과가 없어요 🥲';
+          document.getElementById('body').appendChild(el);
+        }
+      } else {
+        if (empty) empty.remove();
+      }
+    }
+
+    // 데이터 로드
+    async function load() {
+      try {
+        const res = await fetch('/api/notion');
+        const data = await res.json();
+
+        // HEADER
+        const header = document.getElementById('header');
+        header.innerHTML = '';
+        if (data.title?.thumb) {
+          const img = document.createElement('img');
+          img.src = data.title.thumb;
+          img.className = 'logo-img fade-in';
+          img.alt = 'HENQLINK';
+          header.appendChild(img);
+        }
+        if (data.title?.text) {
+          const p = document.createElement('p');
+          p.className = 'logo-text fade-in';
+          p.textContent = data.title.text;
+          header.appendChild(p);
+        }
+
+        // TOP
+        const top = document.getElementById('top');
+        if (data.top?.thumb || data.top?.text) {
+          const a = document.createElement('a');
+          a.href = data.top.link || '#';
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.className = 'fade-in';
+
+          if (data.top.thumb) {
+            const img = document.createElement('img');
+            img.src = data.top.thumb;
+            img.alt = data.top.text || '';
+            a.appendChild(img);
+          }
+
+          const info = document.createElement('div');
+          const textEl = document.createElement('div');
+          textEl.className = 'top-text';
+          textEl.textContent = data.top.text || '헨큐톡 바로가기';
+          const sub = document.createElement('div');
+          sub.className = 'top-sub';
+          sub.textContent = 'YOUTUBE';
+          info.appendChild(textEl);
+          info.appendChild(sub);
+          a.appendChild(info);
+          top.appendChild(a);
+        }
+
+        // BODY
+        const body = document.getElementById('body');
+        body.innerHTML = '';
+        allItems = data.body || [];
+
+        if (allItems.length === 0) {
+          body.innerHTML = '<p class="empty">아직 상품이 없어요</p>';
+        } else {
+          allItems.forEach((item, i) => {
+            const a = document.createElement('a');
+            a.href = item.link || '#';
+            a.target = '_blank';
+            a.rel = 'noopener';
+            a.className = 'item-card fade-in';
+            a.dataset.name = (item.text || '').toLowerCase();
+            a.style.animationDelay = `${i * 0.05}s`;
+
+            // 썸네일
+            if (isCoupang(item.link)) {
+              const fallback = document.createElement('div');
+              fallback.className = 'item-thumb-fallback';
+              fallback.textContent = getEmoji(item.text || '');
+              a.appendChild(fallback);
+            } else {
+              const img = document.createElement('img');
+              img.className = 'item-thumb';
+              img.alt = item.text || '';
+              img.src = item.link
+                ? `https://www.google.com/s2/favicons?domain=${getDomain(item.link)}&sz=128`
+                : '';
+              img.onerror = function() {
+                const fallback = document.createElement('div');
+                fallback.className = 'item-thumb-fallback';
+                fallback.textContent = getEmoji(item.text || '');
+                this.replaceWith(fallback);
+              };
+              a.appendChild(img);
+            }
+
+            // 정보
+            const info = document.createElement('div');
+            info.className = 'item-info';
+
+            const name = document.createElement('div');
+            name.className = 'item-name';
+            name.textContent = item.text || '';
+            info.appendChild(name);
+
+            const domain = document.createElement('div');
+            domain.className = 'item-domain';
+            domain.textContent = getDomain(item.link || '');
+            info.appendChild(domain);
+
+            if (isCoupang(item.link)) {
+              const badge = document.createElement('span');
+              badge.className = 'coupang-badge';
+              badge.textContent = '쿠팡';
+              info.appendChild(badge);
+            }
+
+            a.appendChild(info);
+
+            const arrow = document.createElement('span');
+            arrow.className = 'item-arrow';
+            arrow.textContent = '→';
+            a.appendChild(arrow);
+
+            body.appendChild(a);
+          });
+        }
+
+        // FOOTER
+        const footer = document.getElementById('footer');
+        footer.innerHTML = '';
+        if (data.footer) {
+          if (data.footer.coupang) {
+            const p = document.createElement('p');
+            p.className = 'footer-coupang';
+            p.textContent = data.footer.coupang;
+            footer.appendChild(p);
+          }
+          if (data.footer.copy) {
+            const p = document.createElement('p');
+            p.className = 'footer-copy';
+            p.textContent = data.footer.copy;
+            footer.appendChild(p);
+          }
+        }
+
+      } catch (e) {
+        document.getElementById('body').innerHTML = '<p class="empty">데이터를 불러오지 못했어요 😢</p>';
+        console.error(e);
+      }
+    }
+
+    load();
+  </script>
 </body>
 </html>
