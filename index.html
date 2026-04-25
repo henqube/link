@@ -1,552 +1,592 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HENQLINK</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #f5f3ef;
-      --surface: #ffffff;
-      --border: #e8e4de;
-      --accent: #ff4f6d;
-      --accent2: #222;
-      --text: #1a1a1a;
-      --muted: #999;
-      --radius: 14px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HENQ HOUSE — 헨큐의 집</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+<style>
+  :root {
+    --bg: #fafaf7;
+    --bg-soft: #f3f1ea;
+    --card: #ffffff;
+    --ink: #1a1a1a;
+    --ink-soft: #6b6b6b;
+    --ink-faint: #a8a8a8;
+    --line: #ebe9e2;
+    --hendy: #ff8a8a;
+    --hendy-soft: #ffe5e5;
+    --cq: #f5b942;
+    --cq-soft: #fff1d6;
+    --accent: #ffd84d;
+    --shadow-sm: 0 1px 2px rgba(26,26,26,.04), 0 2px 8px rgba(26,26,26,.04);
+    --shadow-md: 0 2px 4px rgba(26,26,26,.05), 0 8px 24px rgba(26,26,26,.08);
+    --radius-sm: 12px;
+    --radius-md: 18px;
+    --radius-lg: 24px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  body {
+    min-height: 100vh; padding: 28px 18px 100px;
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(255,138,138,.06), transparent 40%),
+      radial-gradient(circle at 85% 70%, rgba(245,185,66,.06), transparent 40%);
+  }
+  .container { max-width: 460px; margin: 0 auto; }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+  .header { text-align: center; margin-bottom: 32px; animation: fadeUp .7s cubic-bezier(.22,1,.36,1) both; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--card); border: 1px solid var(--line);
+    padding: 6px 12px; border-radius: 100px;
+    font-size: 11px; font-weight: 600; color: var(--ink-soft);
+    letter-spacing: .05em; margin-bottom: 16px;
+  }
+  .badge .dot {
+    width: 6px; height: 6px; border-radius: 50%; background: #4ade80;
+    box-shadow: 0 0 0 3px rgba(74,222,128,.2); animation: pulse 2s ease-in-out infinite;
+  }
+  .title {
+    font-family: 'DM Serif Display', serif; font-style: italic;
+    font-size: 44px; line-height: 1; letter-spacing: -.02em; margin-bottom: 10px;
+  }
+  .title .accent {
+    background: linear-gradient(180deg, transparent 65%, var(--accent) 65%);
+    padding: 0 4px; font-style: normal;
+  }
+  .subtitle { font-size: 13px; color: var(--ink-soft); font-weight: 500; letter-spacing: -.01em; }
+  .subtitle .h { color: var(--hendy); font-weight: 700; }
+  .subtitle .c { color: var(--cq); font-weight: 700; }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Noto Sans KR', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 0 0 60px;
-    }
+  .section-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 14px; padding: 0 4px;
+  }
+  .section-head h2 {
+    font-size: 15px; font-weight: 700; letter-spacing: -.02em;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-head h2 .emoji { font-size: 16px; }
+  .section-head .meta {
+    font-family: 'DM Serif Display', serif; font-style: italic;
+    font-size: 12px; color: var(--ink-faint); letter-spacing: .02em;
+  }
 
-    /* HEADER */
-    .header {
-      width: 100%;
-      max-width: 480px;
-      padding: 48px 24px 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
+  .recent-buys {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 10px; margin-bottom: 36px;
+  }
+  .buy-card {
+    background: var(--card); border-radius: var(--radius-md);
+    padding: 10px; box-shadow: var(--shadow-sm); cursor: pointer;
+    transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s;
+    text-decoration: none; color: inherit; position: relative;
+    animation: fadeUp .7s cubic-bezier(.22,1,.36,1) both;
+    border: 1px solid var(--line);
+  }
+  .buy-card:nth-child(1) { animation-delay: .08s; }
+  .buy-card:nth-child(2) { animation-delay: .16s; }
+  .buy-card:nth-child(3) { animation-delay: .24s; }
+  .buy-card:active { transform: scale(.97); }
+  .buy-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .buy-card .img-frame {
+    width: 100%; aspect-ratio: 1; background: var(--bg-soft);
+    border-radius: var(--radius-sm); display: flex; align-items: center;
+    justify-content: center; font-size: 32px; margin-bottom: 8px;
+    position: relative; overflow: hidden;
+  }
+  .buy-card .who-tag {
+    position: absolute; top: 6px; left: 6px; background: white;
+    padding: 3px 8px; border-radius: 100px; font-size: 9.5px;
+    font-weight: 800; box-shadow: var(--shadow-sm); letter-spacing: 0.02em;
+    font-family: 'DM Serif Display', serif; font-style: italic;
+  }
+  .buy-card .who-tag.hendy { color: var(--hendy); }
+  .buy-card .who-tag.cq { color: var(--cq); }
+  .buy-card .name {
+    font-size: 11px; font-weight: 700; line-height: 1.35;
+    margin-bottom: 3px; letter-spacing: -.02em;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .buy-card .comment {
+    font-size: 10.5px; color: var(--ink-soft); line-height: 1.35; letter-spacing: -.02em;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
 
-    .logo-img {
-      width: 140px;
-      height: auto;
-      object-fit: contain;
-    }
+  .house-wrap { margin-bottom: 36px; animation: fadeUp .8s cubic-bezier(.22,1,.36,1) .3s both; }
+  .house {
+    position: relative; width: 100%; aspect-ratio: 1 / 0.95;
+    background: var(--card); border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md); overflow: hidden; border: 1px solid var(--line);
+    padding: 20px;
+  }
+  .house::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(245,185,66,.08), transparent 50%),
+      radial-gradient(circle at 70% 80%, rgba(255,138,138,.06), transparent 50%);
+    pointer-events: none; z-index: 1;
+  }
+  .house svg { width: 100%; height: 100%; display: block; position: relative; z-index: 2; }
+  .room { cursor: pointer; }
+  .room .room-bg { transition: opacity .3s ease, fill .3s ease; }
+  .room:hover .room-bg, .room:active .room-bg { opacity: .9 !important; }
+  .room:hover .room-label { font-weight: 800; }
+  .room-label {
+    font-family: 'Pretendard Variable', sans-serif;
+    font-size: 14px; font-weight: 700; fill: var(--ink);
+    pointer-events: none; text-anchor: middle; letter-spacing: -.03em;
+  }
+  .room-label.small { font-size: 11px; }
+  .house-tap-hint {
+    text-align: center; margin-top: 14px;
+    font-size: 12px; color: var(--ink-soft); font-weight: 500; letter-spacing: -.01em;
+  }
+  .house-tap-hint .arrow { display: inline-block; animation: bounce 1.6s ease-in-out infinite; }
 
-    .logo-text {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 13px;
-      letter-spacing: 4px;
-      color: var(--muted);
-    }
+  .footer-nav { margin-top: 36px; animation: fadeUp .8s cubic-bezier(.22,1,.36,1) .5s both; }
+  .footer-nav-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .nav-link {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius-md); padding: 16px 14px;
+    text-decoration: none; color: var(--ink); box-shadow: var(--shadow-sm);
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+    display: flex; flex-direction: column; gap: 6px;
+    position: relative; overflow: hidden;
+  }
+  .nav-link::after {
+    content: '↗'; position: absolute; top: 12px; right: 14px;
+    font-size: 14px; color: var(--ink-faint); transition: transform .2s;
+  }
+  .nav-link:hover {
+    transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--ink-soft);
+  }
+  .nav-link:hover::after { transform: translate(2px,-2px); color: var(--ink); }
+  .nav-link .ico { font-size: 22px; margin-bottom: 4px; }
+  .nav-link .label { font-size: 14px; font-weight: 700; letter-spacing: -.02em; }
+  .nav-link .desc { font-size: 11px; color: var(--ink-soft); font-weight: 500; letter-spacing: -.01em; }
 
-    /* TOP BUTTON (유튜브 GIF) */
-    .top-btn {
-      width: 100%;
-      max-width: 480px;
-      padding: 0 24px;
-      margin-bottom: 8px;
-    }
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(26,26,26,.5);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    z-index: 100; opacity: 0; pointer-events: none;
+    transition: opacity .3s ease; display: flex;
+    align-items: flex-end; justify-content: center;
+  }
+  .modal-backdrop.active { opacity: 1; pointer-events: auto; }
+  .modal {
+    background: var(--bg); border-radius: 28px 28px 0 0;
+    width: 100%; max-width: 520px; max-height: 92vh; overflow-y: auto;
+    transform: translateY(100%); transition: transform .45s cubic-bezier(.22,1,.36,1);
+    position: relative;
+  }
+  .modal-backdrop.active .modal { transform: translateY(0); }
+  .modal-handle {
+    position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+    width: 36px; height: 4px; background: white;
+    opacity: .8; border-radius: 2px; z-index: 11;
+  }
+  .modal-close {
+    position: absolute; top: 18px; right: 18px;
+    background: rgba(255,255,255,.95); border: none;
+    font-size: 16px; color: var(--ink); cursor: pointer;
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .2s; z-index: 11;
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  }
+  .modal-close:hover { background: var(--ink); color: white; }
 
-    .top-btn a {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      background: var(--accent);
-      border-radius: var(--radius);
-      padding: 16px 20px;
-      text-decoration: none;
-      transition: transform 0.15s, box-shadow 0.15s;
-      box-shadow: 0 4px 20px rgba(255,79,109,0.25);
-    }
+  .modal-hero {
+    width: 100%; aspect-ratio: 16 / 10;
+    position: relative; overflow: hidden;
+    border-radius: 28px 28px 0 0;
+    background: var(--bg-soft);
+  }
+  .modal-hero img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .modal-hero::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,.6) 100%);
+  }
+  .modal-hero-text {
+    position: absolute; bottom: 18px; left: 22px; right: 22px; z-index: 2;
+    color: white;
+  }
+  .modal-room-name {
+    font-family: 'DM Serif Display', serif; font-style: italic;
+    font-size: 32px; line-height: 1; margin-bottom: 6px; letter-spacing: -.02em;
+    color: white;
+  }
+  .modal-room-desc {
+    font-size: 13px; color: rgba(255,255,255,.85);
+    letter-spacing: -.01em; font-weight: 500;
+  }
+  .modal-body { padding: 22px 20px 32px; }
 
-    .top-btn a:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(255,79,109,0.35);
-    }
+  .item-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .item-card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius-md); padding: 10px;
+    text-decoration: none; color: inherit;
+    box-shadow: var(--shadow-sm); transition: transform .2s, box-shadow .2s;
+    position: relative;
+  }
+  .item-card:active { transform: scale(.97); }
+  .item-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .item-card .item-img {
+    width: 100%; aspect-ratio: 1; background: var(--bg-soft);
+    border-radius: var(--radius-sm); display: flex;
+    align-items: center; justify-content: center;
+    font-size: 38px; margin-bottom: 10px; position: relative;
+  }
+  .item-card .pick-tag {
+    position: absolute; top: 8px; right: 8px; background: white;
+    border-radius: 100px; padding: 3px 9px; font-size: 9.5px;
+    font-weight: 800; box-shadow: var(--shadow-sm); letter-spacing: 0.02em;
+    font-family: 'DM Serif Display', serif; font-style: italic;
+  }
+  .item-card .pick-tag.hendy { color: var(--hendy); }
+  .item-card .pick-tag.cq { color: var(--cq); }
+  .item-card .pick-tag.both { background: var(--ink); color: white; font-style: normal; font-family: 'Pretendard Variable', sans-serif; font-weight: 700; }
+  .item-card .item-name {
+    font-size: 12.5px; font-weight: 700; line-height: 1.35;
+    margin-bottom: 4px; letter-spacing: -.02em;
+  }
+  .item-card .item-comment {
+    font-size: 11px; color: var(--ink-soft); line-height: 1.4;
+    letter-spacing: -.01em; font-weight: 500;
+  }
 
-    .top-btn img {
-      width: 52px;
-      height: 52px;
-      object-fit: cover;
-      border-radius: 10px;
-      flex-shrink: 0;
-    }
+  @keyframes fadeUp { from { opacity:0; transform: translateY(16px); } to { opacity:1; transform: translateY(0); } }
+  @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 0 0 3px rgba(74,222,128,.2); }
+    50% { box-shadow: 0 0 0 5px rgba(74,222,128,.1); }
+  }
 
-    .top-btn .top-text {
-      font-size: 15px;
-      font-weight: 500;
-      color: #fff;
-      letter-spacing: 0.3px;
-    }
-
-    .top-btn .top-sub {
-      font-size: 11px;
-      color: rgba(255,255,255,0.7);
-      margin-top: 2px;
-      letter-spacing: 1px;
-    }
-
-    /* DIVIDER */
-    .divider {
-      width: 100%;
-      max-width: 480px;
-      padding: 20px 24px 12px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .divider-label {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 15px;
-      letter-spacing: 3px;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-
-    .divider-line {
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    /* SEARCH */
-    .search-wrap {
-      width: 100%;
-      max-width: 480px;
-      padding: 0 24px 16px;
-    }
-
-    .search-box {
-      width: 100%;
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 16px;
-      font-size: 14px;
-      font-family: 'Noto Sans KR', sans-serif;
-      color: var(--text);
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .search-box:focus {
-      border-color: var(--accent);
-    }
-
-    .search-box::placeholder {
-      color: var(--muted);
-    }
-
-    /* BODY GRID */
-    .body-grid {
-      width: 100%;
-      max-width: 480px;
-      padding: 0 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .item-card {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      background: var(--surface);
-      border-radius: var(--radius);
-      padding: 14px 16px;
-      text-decoration: none;
-      border: 1.5px solid var(--border);
-      transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
-    }
-
-    .item-card:hover {
-      transform: translateY(-1px);
-      border-color: var(--accent);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-    }
-
-    .item-thumb {
-      width: 56px;
-      height: 56px;
-      border-radius: 10px;
-      object-fit: cover;
-      flex-shrink: 0;
-      background: var(--border);
-    }
-
-    /* 썸네일 없을 때 자동 생성 */
-    .item-thumb-fallback {
-      width: 56px;
-      height: 56px;
-      border-radius: 10px;
-      flex-shrink: 0;
-      background: linear-gradient(135deg, #f0ede8, #e8e4de);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-    }
-
-    .item-info {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .item-name {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text);
-      line-height: 1.4;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .item-domain {
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 3px;
-      letter-spacing: 0.3px;
-    }
-
-    .item-arrow {
-      color: var(--muted);
-      font-size: 16px;
-      flex-shrink: 0;
-    }
-
-    /* 쿠팡 배지 */
-    .coupang-badge {
-      font-size: 10px;
-      background: #fee500;
-      color: #222;
-      border-radius: 4px;
-      padding: 2px 6px;
-      font-weight: 700;
-      margin-top: 4px;
-      display: inline-block;
-      letter-spacing: 0.5px;
-    }
-
-    /* FOOTER */
-    .footer {
-      width: 100%;
-      max-width: 480px;
-      padding: 36px 24px 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .footer-coupang {
-      font-size: 11px;
-      color: var(--muted);
-      text-align: center;
-      line-height: 1.6;
-      background: var(--surface);
-      border-radius: 10px;
-      padding: 12px 16px;
-      border: 1px solid var(--border);
-    }
-
-    .footer-copy {
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 1px;
-    }
-
-    /* 없을 때 */
-    .empty {
-      text-align: center;
-      padding: 40px 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    /* 로딩 */
-    .loading {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      padding: 60px 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .spinner {
-      width: 28px;
-      height: 28px;
-      border: 2px solid var(--border);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* 페이드인 */
-    .fade-in {
-      animation: fadeIn 0.4s ease both;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+  .disclosure {
+    text-align: center; margin-top: 28px; font-size: 10px;
+    color: var(--ink-faint); line-height: 1.6; font-weight: 500; letter-spacing: -.01em;
+  }
+</style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <div class="header" id="header">
-    <div class="loading"><div class="spinner"></div></div>
+<div class="container">
+
+  <header class="header">
+    <div class="badge">
+      <span class="dot"></span>
+      <span>HENQ HOUSE — open</span>
+    </div>
+    <h1 class="title">welcome to <span class="accent">henq's</span> place</h1>
+    <p class="subtitle">
+      <span class="h">HENDY</span> & <span class="c">CQ</span>가 진짜 쓰는 것들만
+    </p>
+  </header>
+
+  <section>
+    <div class="section-head">
+      <h2><span class="emoji">📦</span> 최근에 산 것</h2>
+      <span class="meta">just in</span>
+    </div>
+
+    <div class="recent-buys">
+      <a href="#" class="buy-card">
+        <div class="img-frame">
+          🎧
+          <span class="who-tag hendy">HENDY</span>
+        </div>
+        <div class="name">소니 무선 헤드폰</div>
+        <div class="comment">이거 끼면 세상이 사라짐</div>
+      </a>
+      <a href="#" class="buy-card">
+        <div class="img-frame">
+          ☕
+          <span class="who-tag cq">CQ</span>
+        </div>
+        <div class="name">스타벅스 텀블러</div>
+        <div class="comment">드디어 찾은 그 사이즈</div>
+      </a>
+      <a href="#" class="buy-card">
+        <div class="img-frame">
+          🪑
+          <span class="who-tag hendy">HENDY</span>
+        </div>
+        <div class="name">허먼밀러 의자</div>
+        <div class="comment">허리야 살아나라</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="house-wrap">
+    <div class="section-head">
+      <h2><span class="emoji">🏠</span> 헨큐의 도면</h2>
+      <span class="meta">floor plan</span>
+    </div>
+
+    <div class="house">
+      <svg viewBox="0 0 480 460" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+
+        <!-- 외벽 -->
+        <path d="
+          M 60 70 L 60 30 L 170 30 L 170 70 L 280 70 L 280 30 L 380 30
+          L 380 145 L 440 145 L 440 230 L 460 230 L 460 430
+          L 60 430 Z
+        " fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linejoin="miter"/>
+
+        <!-- 화장실 (좌상) -->
+        <g class="room" data-room="bath-master">
+          <rect class="room-bg" x="60" y="70" width="55" height="100" fill="#e3eef5" opacity="0.7"/>
+          <text class="room-label small" x="87.5" y="125">화장실</text>
+        </g>
+        <line x1="115" y1="70" x2="115" y2="170" stroke="#1a1a1a" stroke-width="2.5"/>
+        <line x1="60" y1="170" x2="80" y2="170" stroke="#1a1a1a" stroke-width="2.5"/>
+        <line x1="100" y1="170" x2="115" y2="170" stroke="#1a1a1a" stroke-width="2.5"/>
+
+        <!-- 씨큐방 -->
+        <g class="room" data-room="cq-room">
+          <rect class="room-bg" x="115" y="30" width="165" height="220" fill="#fff1d6" opacity="0.7"/>
+          <text class="room-label" x="197" y="135">씨큐방</text>
+        </g>
+        <line x1="280" y1="70" x2="280" y2="250" stroke="#1a1a1a" stroke-width="2.5"/>
+        <line x1="115" y1="250" x2="195" y2="250" stroke="#1a1a1a" stroke-width="2.5"/>
+        <line x1="220" y1="250" x2="280" y2="250" stroke="#1a1a1a" stroke-width="2.5"/>
+
+        <!-- 주방 -->
+        <g class="room" data-room="kitchen">
+          <rect class="room-bg" x="280" y="30" width="100" height="220" fill="#ffe5e5" opacity="0.55"/>
+          <text class="room-label" x="330" y="135">주방</text>
+        </g>
+        <line x1="280" y1="250" x2="320" y2="250" stroke="#1a1a1a" stroke-width="2.5"/>
+        <line x1="345" y1="250" x2="380" y2="250" stroke="#1a1a1a" stroke-width="2.5"/>
+
+        <!-- 화장실 (우상) -->
+        <g class="room" data-room="bath-guest">
+          <rect class="room-bg" x="380" y="145" width="60" height="85" fill="#e3eef5" opacity="0.7"/>
+          <text class="room-label small" x="410" y="195">화장실</text>
+        </g>
+        <line x1="380" y1="145" x2="380" y2="230" stroke="#1a1a1a" stroke-width="2.5"/>
+        <line x1="380" y1="230" x2="392" y2="230" stroke="#1a1a1a" stroke-width="2.5"/>
+        <line x1="412" y1="230" x2="440" y2="230" stroke="#1a1a1a" stroke-width="2.5"/>
+
+        <!-- 현관 -->
+        <g class="room" data-room="entrance">
+          <rect class="room-bg" x="380" y="230" width="80" height="115" fill="#f3f1ea" opacity="0.85"/>
+          <text class="room-label small" x="420" y="290">현관</text>
+        </g>
+        <line x1="380" y1="230" x2="380" y2="345" stroke="#1a1a1a" stroke-width="2.5"/>
+
+        <!-- 안방 -->
+        <g class="room" data-room="anbang">
+          <rect class="room-bg" x="60" y="250" width="190" height="180" fill="#fff1d6" opacity="0.6"/>
+          <text class="room-label" x="155" y="345">안방</text>
+        </g>
+        <line x1="250" y1="250" x2="250" y2="430" stroke="#1a1a1a" stroke-width="2.5"/>
+
+        <!-- 거실 -->
+        <g class="room" data-room="living">
+          <rect class="room-bg" x="250" y="250" width="130" height="180" fill="#fff5cc" opacity="0.55"/>
+          <text class="room-label" x="315" y="345">거실</text>
+        </g>
+        <line x1="380" y1="345" x2="380" y2="430" stroke="#1a1a1a" stroke-width="2.5"/>
+
+        <!-- 헨디방 -->
+        <g class="room" data-room="hendy-room">
+          <rect class="room-bg" x="380" y="345" width="80" height="85" fill="#ffe5e5" opacity="0.6"/>
+          <text class="room-label small" x="420" y="392">헨디방</text>
+        </g>
+
+        <!-- 방위 -->
+        <g transform="translate(450, 50)" opacity="0.4">
+          <circle r="10" fill="none" stroke="#1a1a1a" stroke-width="0.7"/>
+          <text y="-2" style="font-family:'DM Serif Display'; font-size:9px; font-weight:700; fill:#1a1a1a; text-anchor:middle;">N</text>
+          <line x1="0" y1="2" x2="0" y2="6" stroke="#1a1a1a" stroke-width="0.7"/>
+        </g>
+
+      </svg>
+    </div>
+
+    <p class="house-tap-hint">방을 톡, 눌러보세요 <span class="arrow">↓</span></p>
+  </section>
+
+  <nav class="footer-nav">
+    <div class="section-head">
+      <h2><span class="emoji">🔗</span> 헨큐의 다른 곳</h2>
+      <span class="meta">more</span>
+    </div>
+    <div class="footer-nav-grid">
+      <a href="#" class="nav-link" target="_blank">
+        <span class="ico">📺</span>
+        <span class="label">헨큐톡</span>
+        <span class="desc">부부 대화 유튜브</span>
+      </a>
+      <a href="#" class="nav-link" target="_blank">
+        <span class="ico">🎨</span>
+        <span class="label">헨큐툰</span>
+        <span class="desc">인스타툰 4.4만</span>
+      </a>
+      <a href="#" class="nav-link" target="_blank">
+        <span class="ico">🎬</span>
+        <span class="label">헨큐무비</span>
+        <span class="desc">영화 추천</span>
+      </a>
+      <a href="#" class="nav-link" target="_blank">
+        <span class="ico">🧊</span>
+        <span class="label">HENQUBE</span>
+        <span class="desc">전체 보기</span>
+      </a>
+    </div>
+  </nav>
+
+  <p class="disclosure">
+    이 페이지의 일부 링크는 쿠팡 파트너스 활동의 일환으로,<br>
+    이에 따른 일정액의 수수료를 제공받습니다.
+  </p>
+
+</div>
+
+<div class="modal-backdrop" id="modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-hero">
+      <img id="modal-hero-img" src="" alt=""/>
+      <div class="modal-hero-text">
+        <h2 class="modal-room-name" id="modal-room-name">방 이름</h2>
+        <p class="modal-room-desc" id="modal-room-desc">방 설명</p>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="item-grid" id="modal-items"></div>
+    </div>
   </div>
+</div>
 
-  <!-- TOP -->
-  <div class="top-btn" id="top">
-  </div>
-
-  <!-- DIVIDER -->
-  <div class="divider">
-    <span class="divider-label">HENQ PICK</span>
-    <div class="divider-line"></div>
-  </div>
-
-  <!-- SEARCH -->
-  <div class="search-wrap">
-    <input class="search-box" type="text" id="searchInput" placeholder="상품 검색..." oninput="filterItems()" />
-  </div>
-
-  <!-- BODY -->
-  <div class="body-grid" id="body">
-    <div class="loading"><div class="spinner"></div></div>
-  </div>
-
-  <!-- FOOTER -->
-  <div class="footer" id="footer"></div>
-
-  <script>
-    let allItems = [];
-
-    // 도메인 추출
-    function getDomain(url) {
-      try {
-        return new URL(url).hostname.replace('www.', '');
-      } catch { return url; }
+<script>
+  const ROOMS = {
+    'bath-master': {
+      name: '화장실', desc: '안방 옆 작은 화장실',
+      hero: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=900&q=80',
+      items: [
+        { name: '필립스 전동칫솔', comment: '치과 가는 횟수 줄음', pick: 'both', emoji: '🪥' },
+        { name: '러쉬 입욕제', comment: '하루 끝의 보상', pick: 'hendy', emoji: '🛁' }
+      ]
+    },
+    'cq-room': {
+      name: '씨큐방', desc: 'ENFJ의 작업실 — 모니터 3개의 세계',
+      hero: 'https://images.unsplash.com/photo-1593062096033-9a26b09da705?auto=format&fit=crop&w=900&q=80',
+      items: [
+        { name: 'LG 울트라와이드', comment: '한번 쓰면 못 돌아감', pick: 'cq', emoji: '🖥️' },
+        { name: '로지텍 MX 마스터', comment: '손가락의 친구', pick: 'cq', emoji: '🖱️' },
+        { name: '키크론 K2', comment: '타건감 인생', pick: 'cq', emoji: '⌨️' }
+      ]
+    },
+    'kitchen': {
+      name: '주방', desc: '간단해도 맛있게',
+      hero: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80',
+      items: [
+        { name: '발뮤다 토스터', comment: '식빵이 달라짐', pick: 'hendy', emoji: '🍞' },
+        { name: '드롱기 에스프레소', comment: '카페비 절약', pick: 'cq', emoji: '☕' },
+        { name: '에어프라이어', comment: '치킨 맛집 됨', pick: 'both', emoji: '🍗' }
+      ]
+    },
+    'bath-guest': {
+      name: '화장실', desc: '거실 옆 손님용 화장실',
+      hero: 'https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=900&q=80',
+      items: [
+        { name: '다이슨 드라이기', comment: '비싸도 이유 있음', pick: 'hendy', emoji: '💨' },
+        { name: '핸드워시', comment: '향이 진짜 좋음', pick: 'both', emoji: '🧴' }
+      ]
+    },
+    'entrance': {
+      name: '현관', desc: '외출 직전 손이 가는 것들',
+      hero: 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=900&q=80',
+      items: [
+        { name: '캠퍼 스니커즈', comment: '하루 종일 편함', pick: 'cq', emoji: '👟' },
+        { name: '프라이탁 메신저백', comment: '하나뿐인 디자인', pick: 'hendy', emoji: '👜' },
+        { name: '무인양품 우산', comment: '잃어버려도 안 아픔', pick: 'both', emoji: '☂️' }
+      ]
+    },
+    'anbang': {
+      name: '안방', desc: 'HENDY & CQ의 진짜 휴식 공간',
+      hero: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80',
+      items: [
+        { name: '템퍼 베개', comment: '목 안 아픔 진짜', pick: 'both', emoji: '🛏️' },
+        { name: '필립스 무드등', comment: '잘 때 이거 없으면 못 잠', pick: 'hendy', emoji: '💡' },
+        { name: '아로마 디퓨저', comment: '라벤더 향이 최고', pick: 'hendy', emoji: '🌿' },
+        { name: '암막커튼', comment: '주말 늦잠 보장', pick: 'cq', emoji: '🪟' }
+      ]
+    },
+    'living': {
+      name: '거실', desc: '둘이 가장 많이 머무는 공간',
+      hero: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=900&q=80',
+      items: [
+        { name: 'LG 사운드바', comment: '영화 볼 때 진가 발휘', pick: 'cq', emoji: '🔊' },
+        { name: '이케아 빈백', comment: '한번 앉으면 못 일어남', pick: 'both', emoji: '🛋️' },
+        { name: '몬스테라 대형', comment: '거실의 영혼', pick: 'hendy', emoji: '🪴' },
+        { name: '닌텐도 스위치', comment: '주말 필수템', pick: 'cq', emoji: '🎮' }
+      ]
+    },
+    'hendy-room': {
+      name: '헨디방', desc: 'INTP의 드로잉 작업실',
+      hero: 'https://images.unsplash.com/photo-1611117775350-ac3950990985?auto=format&fit=crop&w=900&q=80',
+      items: [
+        { name: '와콤 신티크 16', comment: '인스타툰의 동반자', pick: 'hendy', emoji: '🎨' },
+        { name: '허먼밀러 에어론', comment: '허리 살림이', pick: 'hendy', emoji: '🪑' },
+        { name: '필립스 모니터등', comment: '눈이 안 아픔', pick: 'hendy', emoji: '💡' }
+      ]
     }
+  };
 
-    // 썸네일 자동 생성 (OG 이미지 or 이모지 폴백)
-    async function fetchThumb(url) {
-      try {
-        const domain = getDomain(url);
-        // 쿠팡 링크면 파비콘 기반 fallback
-        if (domain.includes('coupang')) return null;
-        return `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
-      } catch { return null; }
-    }
+  const modal = document.getElementById('modal');
+  const modalName = document.getElementById('modal-room-name');
+  const modalDesc = document.getElementById('modal-room-desc');
+  const modalItems = document.getElementById('modal-items');
+  const modalHeroImg = document.getElementById('modal-hero-img');
 
-    // 쿠팡 도메인 감지
-    function isCoupang(url) {
-      return url && (url.includes('coupang') || url.includes('coupa.ng'));
-    }
+  document.querySelectorAll('.room').forEach(room => {
+    room.addEventListener('click', () => {
+      const roomKey = room.dataset.room;
+      const data = ROOMS[roomKey];
+      if (!data) return;
+      modalName.textContent = data.name;
+      modalDesc.textContent = data.desc;
+      modalHeroImg.src = data.hero;
+      modalHeroImg.alt = data.name;
+      modalItems.innerHTML = data.items.map(item => `
+        <a href="#" class="item-card">
+          <div class="item-img">
+            ${item.emoji}
+            <span class="pick-tag ${item.pick}">${item.pick === 'hendy' ? 'HENDY' : item.pick === 'cq' ? 'CQ' : '둘다'}</span>
+          </div>
+          <div class="item-name">${item.name}</div>
+          <div class="item-comment">${item.comment}</div>
+        </a>
+      `).join('');
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
 
-    // 이모지 fallback (상품명 첫 글자 기반)
-    function getEmoji(text) {
-      const emojis = ['🛍️','📦','✨','🎁','💫','🌟','🎀','💝'];
-      const idx = text.charCodeAt(0) % emojis.length;
-      return emojis[idx];
-    }
+  function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
 
-    // 검색 필터
-    function filterItems() {
-      const q = document.getElementById('searchInput').value.trim().toLowerCase();
-      const cards = document.querySelectorAll('.item-card');
-      cards.forEach(card => {
-        const name = card.dataset.name || '';
-        card.style.display = name.includes(q) ? 'flex' : 'none';
-      });
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+</script>
 
-      const visible = [...cards].filter(c => c.style.display !== 'none');
-      const empty = document.getElementById('empty-msg');
-      if (visible.length === 0) {
-        if (!empty) {
-          const el = document.createElement('p');
-          el.id = 'empty-msg';
-          el.className = 'empty';
-          el.textContent = '검색 결과가 없어요 🥲';
-          document.getElementById('body').appendChild(el);
-        }
-      } else {
-        if (empty) empty.remove();
-      }
-    }
-
-    // 데이터 로드
-    async function load() {
-      try {
-        const res = await fetch('/api/notion');
-        const data = await res.json();
-
-        // HEADER
-        const header = document.getElementById('header');
-        header.innerHTML = '';
-        if (data.title?.thumb) {
-          const img = document.createElement('img');
-          img.src = data.title.thumb;
-          img.className = 'logo-img fade-in';
-          img.alt = 'HENQLINK';
-          header.appendChild(img);
-        }
-        if (data.title?.text) {
-          const p = document.createElement('p');
-          p.className = 'logo-text fade-in';
-          p.textContent = data.title.text;
-          header.appendChild(p);
-        }
-
-        // TOP
-        const top = document.getElementById('top');
-        if (data.top?.thumb || data.top?.text) {
-          const a = document.createElement('a');
-          a.href = data.top.link || '#';
-          a.target = '_blank';
-          a.rel = 'noopener';
-          a.className = 'fade-in';
-
-          if (data.top.thumb) {
-            const img = document.createElement('img');
-            img.src = data.top.thumb;
-            img.alt = data.top.text || '';
-            a.appendChild(img);
-          }
-
-          const info = document.createElement('div');
-          const textEl = document.createElement('div');
-          textEl.className = 'top-text';
-          textEl.textContent = data.top.text || '헨큐톡 바로가기';
-          const sub = document.createElement('div');
-          sub.className = 'top-sub';
-          sub.textContent = 'YOUTUBE';
-          info.appendChild(textEl);
-          info.appendChild(sub);
-          a.appendChild(info);
-          top.appendChild(a);
-        }
-
-        // BODY
-        const body = document.getElementById('body');
-        body.innerHTML = '';
-        allItems = data.body || [];
-
-        if (allItems.length === 0) {
-          body.innerHTML = '<p class="empty">아직 상품이 없어요</p>';
-        } else {
-          allItems.forEach((item, i) => {
-            const a = document.createElement('a');
-            a.href = item.link || '#';
-            a.target = '_blank';
-            a.rel = 'noopener';
-            a.className = 'item-card fade-in';
-            a.dataset.name = (item.text || '').toLowerCase();
-            a.style.animationDelay = `${i * 0.05}s`;
-
-            // 썸네일
-            if (isCoupang(item.link)) {
-              const fallback = document.createElement('div');
-              fallback.className = 'item-thumb-fallback';
-              fallback.textContent = getEmoji(item.text || '');
-              a.appendChild(fallback);
-            } else {
-              const img = document.createElement('img');
-              img.className = 'item-thumb';
-              img.alt = item.text || '';
-              img.src = item.link
-                ? `https://www.google.com/s2/favicons?domain=${getDomain(item.link)}&sz=128`
-                : '';
-              img.onerror = function() {
-                const fallback = document.createElement('div');
-                fallback.className = 'item-thumb-fallback';
-                fallback.textContent = getEmoji(item.text || '');
-                this.replaceWith(fallback);
-              };
-              a.appendChild(img);
-            }
-
-            // 정보
-            const info = document.createElement('div');
-            info.className = 'item-info';
-
-            const name = document.createElement('div');
-            name.className = 'item-name';
-            name.textContent = item.text || '';
-            info.appendChild(name);
-
-            const domain = document.createElement('div');
-            domain.className = 'item-domain';
-            domain.textContent = getDomain(item.link || '');
-            info.appendChild(domain);
-
-            if (isCoupang(item.link)) {
-              const badge = document.createElement('span');
-              badge.className = 'coupang-badge';
-              badge.textContent = '쿠팡';
-              info.appendChild(badge);
-            }
-
-            a.appendChild(info);
-
-            const arrow = document.createElement('span');
-            arrow.className = 'item-arrow';
-            arrow.textContent = '→';
-            a.appendChild(arrow);
-
-            body.appendChild(a);
-          });
-        }
-
-        // FOOTER
-        const footer = document.getElementById('footer');
-        footer.innerHTML = '';
-        if (data.footer) {
-          if (data.footer.coupang) {
-            const p = document.createElement('p');
-            p.className = 'footer-coupang';
-            p.textContent = data.footer.coupang;
-            footer.appendChild(p);
-          }
-          if (data.footer.copy) {
-            const p = document.createElement('p');
-            p.className = 'footer-copy';
-            p.textContent = data.footer.copy;
-            footer.appendChild(p);
-          }
-        }
-
-      } catch (e) {
-        document.getElementById('body').innerHTML = '<p class="empty">데이터를 불러오지 못했어요 😢</p>';
-        console.error(e);
-      }
-    }
-
-    load();
-  </script>
 </body>
 </html>
